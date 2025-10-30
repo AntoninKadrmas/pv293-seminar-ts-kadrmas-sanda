@@ -10,6 +10,7 @@
     "src/modules/users/repositories/in-memory-users.repository.ts"
   ],
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "typeRoots": [
       "./node_modules/@types/",
       "./src/common/types/",
