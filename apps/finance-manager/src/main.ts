@@ -26,7 +26,8 @@ async function bootstrap() {
 
     const envService: EnvService = app.get(EnvService);
 
-    const port = envService.get("PORT");
+    const port = envService.get("PORT") || 8000;
+    console.log(`Starting Finance Manager on port ${port}...`);
     await app.listen(port);
 
     if (module.hot) {

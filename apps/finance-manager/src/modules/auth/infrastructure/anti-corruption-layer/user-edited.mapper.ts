@@ -9,13 +9,29 @@ export class UserUpdatedMappedEvent implements IEvent {
     ) {}
 }
 
-@EventsHandler(UserUpdatedEvent)
-export class UserUpdatedEventHandler implements IEventHandler<UserUpdatedEvent> {
+export class UserUpdatedEventHandler {
     constructor(private readonly eventBus: EventBus) {}
 
-    handle(event: UserUpdatedEvent) {
-        const mappedEvent = new UserUpdatedMappedEvent(event.id, event.email, event.name);
+    async consumerHandler(event: UserUpdatedEvent): Promise<void> {
+        if (!event) return;
 
-        this.eventBus.publish(mappedEvent);
+        const mappedEvent = new UserUpdatedMappedEvent(
+            event.id, 
+            event.email, 
+            event.name
+        );
+
+        await this.eventBus.publish(mappedEvent);
     }
 }
+
+// @EventsHandler(UserUpdatedEvent)
+// export class UserUpdatedEventHandler implements IEventHandler<UserUpdatedEvent> {
+//     constructor(private readonly eventBus: EventBus) {}
+
+//     handle(event: UserUpdatedEvent) {
+//         const mappedEvent = new UserUpdatedMappedEvent(event.id, event.email, event.name);
+
+//         this.eventBus.publish(mappedEvent);
+//     }
+// }
